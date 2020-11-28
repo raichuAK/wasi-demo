@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Wasm-demo</title>
+    
+  </head>
+  <body>
+      <div class="container" style="width: 400px;">
+            <p>
+                Your clicked <span id="increment">0</span> times
+            </p>
+            <button onclick="addNumber()">Increase number</button>
+      </div>
+  </body>
+  <script>
+    (async () => {
+      let response = await fetch('target/wasm32-unknown-unknown/release/hello_world_rust_wasm.wasm');
+      let bytes = await response.arrayBuffer();
+      let { instance } = await WebAssembly.instantiate(bytes, { });
+        window.wasmInstance = instance;
+    })();
+    function addNumber() {
+        document.getElementById('increment').innerText = window.wasmInstance.exports.add_one(document.getElementById('increment').innerText);
+    }
+  </script>
+</html>
