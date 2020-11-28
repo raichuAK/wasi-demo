@@ -1,0 +1,9 @@
+[package]
+name = "hello-world-rust-wasm"
+version = "0.1.0"
+authors = ["Ashwani <ashwani.kushwaha@ing.com>"]
+edition = "2018"
+
+[dependencies]
+[lib]
+crate-type = ["cdylib"]
